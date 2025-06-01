@@ -1,0 +1,329 @@
+body{
+    background-color: antiquewhite;
+    color: #f1ecec;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+/* Основная страница */
+.container{
+    overflow: hidden;
+    margin: 20px auto;
+    /* width: 90%; */
+    background-color: rgb(40, 46, 21);
+    border-radius: 10px;
+    position: relative;
+}
+
+.photo{
+    float: right;
+    margin-bottom: 50px;
+    margin-right: 100px;
+    margin-top: 0;
+    margin-left: 10px;
+    border-radius: 10px;
+}
+
+.logo{
+    width: 700px;
+    border-radius: 10px;
+}
+
+.glavn{
+    overflow: hidden;
+}
+
+.left-part{
+    position: absolute;
+    left: 0;
+    bottom: 55px;
+    margin-right: 0;
+    margin-left: 100px;
+    width: 45%;
+}
+
+h1{
+    margin-top: 0;
+    margin-right: 20px;
+    margin-left: 0;
+    margin-bottom: 20px;
+    font-size: 70px;
+}
+p{
+    font-size: 30px;
+    margin:0 ;
+}
+/* Кнопка */
+.button{
+    display: flex;
+}
+.button a{
+    background-color: #f9e8e8;
+    color:  rgb(40, 46, 21);
+    border: none;
+    font-size: 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: block;
+    padding: 1em;
+    margin:auto;
+    width: 112px;
+}
+.button a:hover{
+    background-color: #e25d20;
+    color:#f1ecec;
+}
+/* Шапка */
+.nav-container>nav>ul{
+    display: flex;
+    list-style: none;
+    padding-inline-start: 100px;
+}
+.nav-container>nav>ul>li>a{
+    color: #f9e8e8;
+    font-size: 20px;
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    
+}
+.nav-container a:hover{
+    color: #e25d20;
+}
+
+/* О НАС */
+.text{
+    margin-top: 100px;
+    margin-bottom: 50px;
+    margin-left: 200px;
+    width: 40%;
+    float: left;
+}
+
+.text h1{
+    text-align: center;
+    margin-bottom: 50px;
+}
+.text p{
+    text-align: justify;
+    font-size: 25px;
+    line-height: 35px;
+}
+
+.video{
+    float: right;
+    margin-right: 200px;
+    margin-bottom: 50px;
+}
+
+/* УЧАСТНИКИ */
+
+.player{
+    margin: 200px;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+.player h1{
+    text-align: center;
+    color: #e25d20;
+}
+
+h2{
+    font-size: 30px;
+    color: #e25d20;
+}
+.player p{
+    font-size: 25px;
+}
+
+.player ul{
+    font-size: 25px;
+}
+
+.first{
+    width: 30%;
+    margin: auto;
+}
+.second{
+    width: 30%;
+    float: left;
+}
+.third{
+    width: 30%;
+    float: right;
+}
+
+/* ЖУРНАЛ */
+.onetask{
+    overflow: hidden;
+    margin: 40px auto;
+    width: 70%;
+    background-color: #f9e8e8;
+    border-radius: 10px;
+    position: relative;
+}
+
+.journal h1{
+    text-align: center;
+    color: #e25d20;
+}
+.onevideo{
+    margin: 30px;
+    float: left;
+}
+.onetext{
+    width: 62%;
+    left: 0;
+    color: rgb(40, 46, 21);
+    float: right;
+    margin: 30px;
+    margin-left: 0;
+    margin-right: 60px;
+}
+.journal p{
+    font-size: 25px;
+}
+
+.twotask{
+    overflow: hidden;
+    margin: 40px auto;
+    width: 70%;
+    background-color: #f9e8e8;
+    border-radius: 10px;
+    position: relative;
+}
+
+.rumka{
+    width: 450px;
+    border-radius: 10px;
+}
+
+.twopicher{
+    margin: 30px;
+}
+
+.twotext{
+    width: 50%;
+    color: rgb(40, 46, 21);
+    float: right;
+    margin: 30px;
+    margin-right: 60px;
+}
+.threetask{
+    overflow: hidden;
+    margin: 40px auto;
+    width: 70%;
+    background-color: #f9e8e8;
+    border-radius: 10px;
+    position: relative;
+}
+
+.threetext{
+    width: 45%;
+    color: rgb(40, 46, 21);
+    float: right;
+    margin: 30px;
+    margin-left: 0;
+    margin-right: 60px;
+}
+.threevideo{
+    width: 40%;
+    margin: 30px;
+    margin-right: 0;
+    float: left;
+}
+
+/* КОНТАКТЫ */
+.contact h1{
+    text-align: center;
+    color: #e25d20;
+}
+
+.contact h2{
+    margin: 30px;
+}
+
+.contact a{
+    margin: 30px;
+}
+
+.instrucshone{
+    margin: 30px;
+}
+.ins{
+    width: 1300px;
+    border-radius: 10px;
+}
+.textr{
+    margin-left: 200px;
+    margin-bottom: 50px;
+}
+.w{
+    margin-left: 200px;
+}
+.contact a{
+    color:#f9e8e8;
+}
+
+/* ПОДВАЛ */
+.footer {
+    background-color: #f9e8e8;
+    color: rgb(40, 46, 21);
+    padding: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section p{
+    font-size: 20px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+    margin: 10px;
+}
+
+.footer-section h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.footer-section p, .footer-section a {
+    margin-bottom: 10px;
+    color: rgb(40, 46, 21);
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    color: rgb(40, 46, 21);
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    border-top: 1px solid #f9e8e8;
+}
+
+.footer-bottom p {
+    margin: 0;
+    font-size: 14px;
+}
