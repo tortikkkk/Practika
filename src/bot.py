@@ -17,6 +17,8 @@ RESPONSES = [
     "Я запомню эту шутку!"
 ]
 
+# Временное хранение данных в памяти (не сохраняется между перезапусками)
+disliked_content = {'memes': [], 'texts': []}
 user_last_message = {}
 
 def create_main_keyboard():
@@ -61,14 +63,19 @@ def send_meme(message):
         offer_services(message.chat.id)
         return
     
-    memes = [f for f in os.listdir(MEMES_FOLDER) if f.endswith(('.jpg', '.jpeg', '.png'))]
+    # Получаем список мемов, исключая не понравившиеся (только в текущей сессии)
+    available_memes = [
+        f for f in os.listdir(MEMES_FOLDER) 
+        if f.endswith(('.jpg', '.jpeg', '.png')) 
+        and f not in disliked_content['memes']
+    ]
     
-    if not memes:
-        bot.send_message(message.chat.id, 'В папке нет мемов!')
+    if not available_memes:
+        bot.send_message(message.chat.id, 'В папке нет новых мемов для тебя в этой сессии! Попробуй перезапустить бота.')
         offer_services(message.chat.id)
         return
     
-    random_meme = random.choice(memes)
+    random_meme = random.choice(available_memes)
     meme_path = os.path.join(MEMES_FOLDER, random_meme)
     
     with open(meme_path, 'rb') as photo:
@@ -79,7 +86,7 @@ def send_meme(message):
         )
         user_last_message[message.chat.id] = {
             'type': 'meme', 
-            'file': random_meme, 
+            'content': random_meme, 
             'message_id': msg.message_id
         }
 
@@ -87,14 +94,17 @@ def send_meme(message):
 def send_random_text(message):
     try:
         with open(TEXTS_FILE, 'r', encoding='utf-8') as f:
-            texts = [line.strip() for line in f.readlines() if line.strip()]
+            all_texts = [line.strip() for line in f.readlines() if line.strip()]
         
-        if not texts:
-            bot.reply_to(message, "Файл с текстами пуст!")
+        # Исключаем не понравившиеся анекдоты (только в текущей сессии)
+        available_texts = [text for text in all_texts if text not in disliked_content['texts']]
+        
+        if not available_texts:
+            bot.reply_to(message, "Для тебя закончились новые анекдоты в этой сессии! Попробуй перезапустить бота.")
             offer_services(message.chat.id)
             return
         
-        random_text = random.choice(texts)
+        random_text = random.choice(available_texts)
         msg = bot.reply_to(
             message, 
             random_text, 
@@ -112,11 +122,18 @@ def send_random_text(message):
 @bot.callback_query_handler(func=lambda call: True)
 def handle_feedback(call):
     chat_id = call.message.chat.id
+    user_data = user_last_message.get(chat_id, {})
     
     if call.data == 'like':
         bot.send_message(chat_id, "Я рада что тебе понравилось! 😊")
     elif call.data == 'dislike':
-        bot.send_message(chat_id, "Грустно что тебе не понравилось. Попробуй еще посмотреть. 😔")
+        # Добавляем контент в список не понравившихся (только в памяти)
+        if user_data['type'] == 'meme':
+            disliked_content['memes'].append(user_data['content'])
+        elif user_data['type'] == 'text':
+            disliked_content['texts'].append(user_data['content'])
+        
+        bot.send_message(chat_id, "Грустно что тебе не понравилось. В этой сессии я больше не буду показывать этот контент. 😔")
     
     try:
         bot.edit_message_reply_markup(
