@@ -17,12 +17,10 @@ RESPONSES = [
     "Я запомню эту шутку!"
 ]
 
-# Временное хранение данных в памяти (не сохраняется между перезапусками)
 disliked_content = {'memes': [], 'texts': []}
 user_last_message = {}
 
 def create_main_keyboard():
-    """Создает основную клавиатуру с выбором действий"""
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
     btn1 = types.KeyboardButton('➕ Мем')
     btn2 = types.KeyboardButton('📄 Анекдот')
@@ -30,7 +28,6 @@ def create_main_keyboard():
     return markup
 
 def create_feedback_keyboard():
-    """Создает клавиатуру для оценки контента"""
     markup = types.InlineKeyboardMarkup()
     like = types.InlineKeyboardButton(text='👍 Лайк', callback_data='like')
     dislike = types.InlineKeyboardButton(text='👎 Дизлайк', callback_data='dislike')
@@ -38,7 +35,6 @@ def create_feedback_keyboard():
     return markup
 
 def offer_services(chat_id):
-    """Предлагает пользователю выбрать следующее действие"""
     bot.send_message(
         chat_id,
         "Что хочешь сделать дальше?",
@@ -62,8 +58,7 @@ def send_meme(message):
         bot.send_message(message.chat.id, 'Папка с мемами не найдена!')
         offer_services(message.chat.id)
         return
-    
-    # Получаем список мемов, исключая не понравившиеся (только в текущей сессии)
+
     available_memes = [
         f for f in os.listdir(MEMES_FOLDER) 
         if f.endswith(('.jpg', '.jpeg', '.png')) 
@@ -95,8 +90,7 @@ def send_random_text(message):
     try:
         with open(TEXTS_FILE, 'r', encoding='utf-8') as f:
             all_texts = [line.strip() for line in f.readlines() if line.strip()]
-        
-        # Исключаем не понравившиеся анекдоты (только в текущей сессии)
+
         available_texts = [text for text in all_texts if text not in disliked_content['texts']]
         
         if not available_texts:
@@ -127,13 +121,12 @@ def handle_feedback(call):
     if call.data == 'like':
         bot.send_message(chat_id, "Я рада что тебе понравилось! 😊")
     elif call.data == 'dislike':
-        # Добавляем контент в список не понравившихся (только в памяти)
         if user_data['type'] == 'meme':
             disliked_content['memes'].append(user_data['content'])
         elif user_data['type'] == 'text':
             disliked_content['texts'].append(user_data['content'])
         
-        bot.send_message(chat_id, "Грустно что тебе не понравилось. В этой сессии я больше не буду показывать этот контент. 😔")
+        bot.send_message(chat_id, "Грустно что тебе не понравилось. Я больше не буду показывать этот контент. 😔")
     
     try:
         bot.edit_message_reply_markup(
